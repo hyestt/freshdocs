@@ -35,10 +35,10 @@ export default function SiteNav() {
           {link("/docs", "Docs")}
           {link("/demo", "Widget demo")}
           <a
-            href="/#pricing"
+            href="/#early-access"
             className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
           >
-            Pricing
+            Early access
           </a>
         </nav>
         <div className="flex items-center gap-3">
