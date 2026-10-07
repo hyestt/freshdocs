@@ -31,7 +31,7 @@ export async function GET() {
     '#fd-panel{position:fixed;right:20px;bottom:88px;width:360px;max-width:calc(100vw - 40px);height:480px;',
     'max-height:calc(100vh - 120px);background:#fff;border:1px solid #e2e8f0;border-radius:14px;z-index:2147483000;',
     'display:none;flex-direction:column;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.22);',
-    'font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}',
+    'color:#0f172a;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}',
     '#fd-panel.open{display:flex}',
     '#fd-head{background:#0f766e;color:#fff;padding:12px 14px;font-weight:600;font-size:15px;display:flex;justify-content:space-between;align-items:center}',
     '#fd-head button{background:none;border:none;color:#fff;font-size:18px;cursor:pointer}',
@@ -42,7 +42,8 @@ export async function GET() {
     '.fd-cite{font-size:12px;margin-top:6px}',
     '.fd-cite a{color:#0d9488;text-decoration:none}',
     '#fd-form{display:flex;border-top:1px solid #e2e8f0}',
-    '#fd-input{flex:1;border:none;padding:12px;font-size:14px;outline:none}',
+    '#fd-input{flex:1;border:none;padding:12px;font-size:14px;outline:none;background:#fff;color:#0f172a;font-family:inherit}',
+    '#fd-input::placeholder{color:#94a3b8}',
     '#fd-send{border:none;background:#0d9488;color:#fff;padding:0 16px;cursor:pointer;font-size:14px}',
     '#fd-send:disabled{opacity:.5;cursor:default}'
   ].join('');
