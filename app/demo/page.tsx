@@ -67,18 +67,23 @@ export default function DemoPage() {
             <ol className="mt-4 space-y-3 text-slate-600 dark:text-slate-300">
               <li className="flex gap-3">
                 <span className="font-bold text-teal-600">1.</span>
-                Deploy FreshDocs anywhere Node.js runs and note your public host.
+                <span>Deploy FreshDocs anywhere Node.js runs and note your public host.</span>
               </li>
               <li className="flex gap-3">
                 <span className="font-bold text-teal-600">2.</span>
-                Paste the snippet before <code>&lt;/body&gt;</code>, replacing{" "}
-                <code>YOUR-HOST</code> with your host.
+                <span>
+                  Paste the snippet before <code className="font-mono text-sm">&lt;/body&gt;</code>,
+                  replacing <code className="font-mono text-sm">YOUR-HOST</code> with your host.
+                </span>
               </li>
               <li className="flex gap-3">
                 <span className="font-bold text-teal-600">3.</span>
-                The bubble appears on every page. <code>data-title</code> sets the panel
-                header; omit <code>data-api</code> and it defaults to the script's own
-                origin.
+                <span>
+                  The bubble appears on every page.{" "}
+                  <code className="font-mono text-sm">data-title</code> sets the panel header;
+                  omit <code className="font-mono text-sm">data-api</code> and it defaults to the
+                  script&apos;s own origin.
+                </span>
               </li>
             </ol>
             <h3 className="mt-8 text-lg font-semibold">How it answers</h3>
