@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ---------------------------------------------------------------
+   .fd-prose — typography for rendered help articles (lib/markdown.ts).
+   Kept framework-free so the styles also work wherever the HTML is used.
+---------------------------------------------------------------- */
+.fd-prose {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #1e293b;
+}
+.fd-prose h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 1rem;
+  color: #0f172a;
+}
+.fd-prose h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  margin: 2rem 0 0.75rem;
+  color: #0f172a;
+}
+.fd-prose h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem;
+  color: #0f172a;
+}
+.fd-prose h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1.25rem 0 0.5rem;
+  color: #0f172a;
+}
+.fd-prose p {
+  margin: 0 0 1rem;
+}
+.fd-prose ul {
+  margin: 0 0 1rem 1.25rem;
+  list-style: disc;
+}
+.fd-prose li {
+  margin: 0.25rem 0;
+}
+.fd-prose blockquote {
+  border-left: 3px solid #14b8a6;
+  padding-left: 1rem;
+  margin: 0 0 1rem;
+  color: #475569;
+  font-style: italic;
+}
+.fd-prose pre {
+  background: #0f172a;
+  color: #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 0 0 1rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.fd-prose code {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+}
+.fd-prose p code,
+.fd-prose li code {
+  background: #f1f5f9;
+  color: #0f766e;
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.875em;
+}
+.fd-prose a {
+  color: #0d9488;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.fd-prose strong {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+@media (prefers-color-scheme: dark) {
+  .fd-prose {
+    color: #cbd5e1;
+  }
+  .fd-prose h1,
+  .fd-prose h2,
+  .fd-prose h3,
+  .fd-prose h4,
+  .fd-prose strong {
+    color: #f1f5f9;
+  }
+  .fd-prose blockquote {
+    color: #94a3b8;
+  }
+  .fd-prose p code,
+  .fd-prose li code {
+    background: #1e293b;
+    color: #5eead4;
+  }
+}

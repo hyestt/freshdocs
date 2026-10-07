@@ -1,0 +1,65 @@
+# wrangler.toml — Cloudflare Workers deployment config for FreshDocs.
+#
+# QUICK START (full walkthrough in DEPLOY.md):
+#   1. wrangler login
+#   2. wrangler d1 create freshdocs   → paste the database_id below
+#   3. wrangler d1 execute freshdocs --file=d1-schema.sql
+#   4. wrangler secret put ADMIN_PASSWORD   (and LLM_API_KEY if you have one)
+#   5. CF_WORKERS_BUILD=1 npx opennextjs-cloudflare build
+#   6. wrangler deploy
+#
+# NOTE: database_id is a placeholder until step 2 is done.
+
+name = "freshdocs"
+main = ".open-next/worker.js"
+compatibility_date = "2025-06-01"
+compatibility_flags = ["nodejs_compat"]
+
+# --- Durable Objects (required by @opennextjs/cloudflare's default cache) ----
+# The OpenNext worker always exports these classes; wrangler requires every
+# exported DO class to be declared or `wrangler deploy` fails validation.
+# Our app is fully dynamic (no ISR), so they sit idle — but they must exist.
+[[durable_objects.bindings]]
+name = "NEXT_TAG_CACHE_DO_SHARDED"
+class_name = "DOShardedTagCache"
+
+[[durable_objects.bindings]]
+name = "NEXT_CACHE_DO_QUEUE"
+class_name = "DOQueueHandler"
+
+[[durable_objects.bindings]]
+name = "NEXT_CACHE_DO_PURGE"
+class_name = "BucketCachePurge"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["DOShardedTagCache", "DOQueueHandler", "BucketCachePurge"]
+
+# --- D1 (SQLite) database ---------------------------------------------------
+# Binding name "DB" is what lib/db-d1.ts reads via getCloudflareContext().env.
+[[d1_databases]]
+binding = "DB"
+database_name = "freshdocs"
+database_id = "0b3ab548-5be0-4d00-8002-a1a14cab33e9"
+
+# --- Plain (non-secret) vars ------------------------------------------------
+[vars]
+# Select the database backend: "d1" on Workers. Anything else (or unset)
+# falls back to the local better-sqlite3 file — the `npm run dev` path.
+DB_BACKEND = "d1"
+# OpenAI-compatible chat-completions endpoint (non-secret parts).
+LLM_BASE_URL = "https://api.openai.com/v1"
+LLM_MODEL = "gpt-4o-mini"
+
+# --- Secrets (set with `wrangler secret put <NAME>`, never commit) -----------
+# ADMIN_PASSWORD  — password for the /admin dashboard. REQUIRED: without it
+#                   the app falls back to the literal password "admin".
+# LLM_API_KEY     — OpenAI-compatible API key. OPTIONAL: without it the app
+#                   runs in heuristic/extractive demo mode (fully functional).
+
+# --- Static assets ------------------------------------------------------------
+# opennextjs-cloudflare emits the Next.js static assets here; the worker
+# serves them. Unmatched paths fall through to the worker (Next routing),
+# so no not_found_handling override is set.
+[assets]
+directory = ".open-next/assets"
