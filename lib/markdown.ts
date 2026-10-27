@@ -26,6 +26,42 @@ function inline(md: string): string {
 
 const FENCE = "FRESHDOCS-FENCE-";
 
+function makeHeadingId(raw: string, seen: Map<string, number>): string {
+  const base =
+    raw
+      .replace(/[*_`[\]]/g, "")
+      .toLowerCase()
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "") || "section";
+  const count = seen.get(base) ?? 0;
+  seen.set(base, count + 1);
+  return count === 0 ? base : `${base}-${count + 1}`;
+}
+
+export interface MarkdownHeading {
+  level: number;
+  text: string;
+  id: string;
+}
+
+export function getMarkdownHeadings(md: string): MarkdownHeading[] {
+  const seen = new Map<string, number>();
+  const headings: MarkdownHeading[] = [];
+
+  for (const line of md.split("\n")) {
+    const match = line.match(/^(#{1,4})\s+(.*)$/);
+    if (!match) continue;
+    const level = match[1].length;
+    const text = match[2].replace(/[*_`[\]]/g, "");
+    const id = makeHeadingId(match[2], seen);
+    if (level >= 2) headings.push({ level, text, id });
+  }
+
+  return headings;
+}
+
 export function renderMarkdown(md: string): string {
   // Pull out fenced code blocks first so their contents aren't reformatted.
   const fences: string[] = [];
@@ -36,6 +72,7 @@ export function renderMarkdown(md: string): string {
 
   const out: string[] = [];
   const lines = src.split("\n");
+  const headings = new Map<string, number>();
   let inList = false;
   const closeList = () => {
     if (inList) {
@@ -55,7 +92,8 @@ export function renderMarkdown(md: string): string {
     if (h) {
       closeList();
       const lvl = h[1].length;
-      out.push(`<h${lvl}>${inline(h[2])}</h${lvl}>`);
+      const id = makeHeadingId(h[2], headings);
+      out.push(`<h${lvl} id="${id}">${inline(h[2])}</h${lvl}>`);
       continue;
     }
     const li = line.match(/^\s*[-*]\s+(.*)$/);

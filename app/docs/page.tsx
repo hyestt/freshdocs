@@ -2,6 +2,7 @@ import SiteNav from "../components/SiteNav";
 import SiteFooter from "../components/SiteFooter";
 import { getArticles } from "@/lib/data";
 import DocsExplorer from "./DocsExplorer";
+import DocsSidebar from "./DocsSidebar";
 
 export const dynamic = "force-dynamic";
 
@@ -17,17 +18,26 @@ export default async function DocsIndexPage() {
     <div className="min-h-screen bg-[#fbfcf9] text-[#14231d]">
       <SiteNav />
       <main>
-        <section className="border-b border-[#dfe5df] bg-[#f2f6f2]">
-          <div className="mx-auto max-w-4xl px-5 py-16 text-center sm:px-8 sm:py-20">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#126b52]">FreshDocs support</p>
-            <h1 className="mt-4 text-4xl font-semibold tracking-[-0.045em] sm:text-5xl">How can we help?</h1>
-            <p className="mx-auto mt-4 max-w-xl leading-7 text-[#69776f]">
-              Clear, source-checked guides for setting up and getting the most from your workspace.
-            </p>
+        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-10 sm:px-8 sm:py-14 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-12">
+          <DocsSidebar articles={articles} />
+          <div className="min-w-0">
+            <div className="rounded-[24px] bg-[#edf4f0] px-6 py-10 sm:px-10 sm:py-12">
+              <div className="flex items-center gap-2 text-xs font-medium text-[#69776f]">
+                <span>Help center</span>
+                <span className="text-[#a4aea8]">/</span>
+                <span className="text-[#126b52]">Guide home</span>
+              </div>
+              <h1 className="mt-6 text-4xl font-semibold tracking-[-0.045em] sm:text-5xl">
+                Find the answer, then get back to work.
+              </h1>
+              <p className="mt-4 max-w-2xl leading-7 text-[#5d6c64]">
+                Browse clear, source-checked guides for setting up and getting the most from your workspace.
+              </p>
+            </div>
+            <div className="mt-10">
+              <DocsExplorer initial={articles} />
+            </div>
           </div>
-        </section>
-        <div className="mx-auto max-w-4xl px-5 py-12 sm:px-8 sm:py-16">
-          <DocsExplorer initial={articles} />
         </div>
       </main>
       <SiteFooter />
