@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Brand from "./Brand";
 
 /** Shared top navigation for the public pages. */
 export default function SiteNav() {
@@ -10,10 +11,10 @@ export default function SiteNav() {
     <Link
       key={href}
       href={href}
-      className={`text-sm font-medium transition-colors ${
-        pathname === href
-          ? "text-teal-700 dark:text-teal-300"
-          : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+      className={`rounded-full px-3.5 py-2 text-sm font-medium ${
+        pathname === href || (href !== "/" && pathname.startsWith(href))
+          ? "bg-[#e8f1ec] text-[#126b52]"
+          : "text-[#5d6c64] hover:bg-[#f1f3ef] hover:text-[#14231d]"
       }`}
     >
       {label}
@@ -21,38 +22,31 @@ export default function SiteNav() {
   );
 
   return (
-    <header className="border-b border-slate-200 bg-white/80 backdrop-blur dark:border-slate-800 dark:bg-slate-950/80">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-lg font-bold text-white">
-            F
-          </span>
-          <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">
-            FreshDocs
-          </span>
-        </Link>
-        <nav className="hidden items-center gap-6 md:flex">
+    <header className="sticky top-0 z-40 border-b border-[#dfe5df]/90 bg-[#fbfcf9]/90 backdrop-blur-xl">
+      <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5 sm:px-8">
+        <Brand />
+        <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
           {link("/docs", "Docs")}
-          {link("/demo", "Widget demo")}
+          {link("/demo", "Live demo")}
           <a
             href="/#pricing"
-            className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+            className="rounded-full px-3.5 py-2 text-sm font-medium text-[#5d6c64] hover:bg-[#f1f3ef] hover:text-[#14231d]"
           >
             Pricing
           </a>
         </nav>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <Link
             href="/admin"
-            className="text-sm font-medium text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+            className="hidden px-2 py-2 text-sm font-medium text-[#5d6c64] hover:text-[#14231d] sm:block"
           >
             Sign in
           </Link>
           <Link
             href="/demo"
-            className="rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-teal-700"
+            className="rounded-full bg-[#14231d] px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:-translate-y-0.5 hover:bg-[#126b52]"
           >
-            Try it live
+            Try the demo
           </Link>
         </div>
       </div>

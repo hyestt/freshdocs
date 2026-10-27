@@ -1,4 +1,5 @@
 import SiteNav from "../components/SiteNav";
+import SiteFooter from "../components/SiteFooter";
 import { getArticles } from "@/lib/data";
 import DocsExplorer from "./DocsExplorer";
 
@@ -13,18 +14,23 @@ export default async function DocsIndexPage() {
   }));
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <div className="min-h-screen bg-[#fbfcf9] text-[#14231d]">
       <SiteNav />
-      <main className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-        <h1 className="text-3xl font-bold tracking-tight">Help center</h1>
-        <p className="mt-2 text-slate-600 dark:text-slate-300">
-          Every article below is audited by AI against its source — what you read is what
-          the product actually does.
-        </p>
-        <div className="mt-8">
+      <main>
+        <section className="border-b border-[#dfe5df] bg-[#f2f6f2]">
+          <div className="mx-auto max-w-4xl px-5 py-16 text-center sm:px-8 sm:py-20">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#126b52]">FreshDocs support</p>
+            <h1 className="mt-4 text-4xl font-semibold tracking-[-0.045em] sm:text-5xl">How can we help?</h1>
+            <p className="mx-auto mt-4 max-w-xl leading-7 text-[#69776f]">
+              Clear, source-checked guides for setting up and getting the most from your workspace.
+            </p>
+          </div>
+        </section>
+        <div className="mx-auto max-w-4xl px-5 py-12 sm:px-8 sm:py-16">
           <DocsExplorer initial={articles} />
         </div>
       </main>
+      <SiteFooter />
     </div>
   );
 }

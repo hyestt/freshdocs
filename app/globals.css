@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fbfcf9;
+  --foreground: #14231d;
 }
 
 @theme inline {
@@ -12,17 +12,46 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #ccebdd;
+  color: #0f4939;
+}
+
+button,
+a,
+input,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a {
+  transition-property: color, background-color, border-color, box-shadow, opacity, transform;
+  transition-duration: 180ms;
+  transition-timing-function: ease;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgb(18 107 82 / 20%);
+  outline-offset: 3px;
+}
+
+.soft-grid {
+  background-image:
+    linear-gradient(rgb(20 35 29 / 4%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(20 35 29 / 4%) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black 0%, transparent 92%);
 }
 
 /* ---------------------------------------------------------------
@@ -105,25 +134,4 @@ body {
 .fd-prose strong {
   font-weight: 600;
   color: #0f172a;
-}
-
-@media (prefers-color-scheme: dark) {
-  .fd-prose {
-    color: #cbd5e1;
-  }
-  .fd-prose h1,
-  .fd-prose h2,
-  .fd-prose h3,
-  .fd-prose h4,
-  .fd-prose strong {
-    color: #f1f5f9;
-  }
-  .fd-prose blockquote {
-    color: #94a3b8;
-  }
-  .fd-prose p code,
-  .fd-prose li code {
-    background: #1e293b;
-    color: #5eead4;
-  }
 }

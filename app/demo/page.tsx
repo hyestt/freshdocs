@@ -3,6 +3,7 @@
 import Script from "next/script";
 import { useState } from "react";
 import SiteNav from "../components/SiteNav";
+import SiteFooter from "../components/SiteFooter";
 
 const SNIPPET = `<!-- FreshDocs chat widget — paste before </body> -->
 <script
@@ -31,88 +32,119 @@ export default function DemoPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <div className="min-h-screen bg-[#fbfcf9] text-[#14231d]">
       <Script src="/api/widget.js" data-title="Pulseboard help" strategy="afterInteractive" />
       <SiteNav />
 
-      <main className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        {/* fake product page */}
-        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-8 dark:border-slate-800 dark:bg-slate-900 sm:p-12">
-          <span className="inline-block rounded-full bg-teal-100 px-3 py-1 text-xs font-semibold text-teal-800 dark:bg-teal-950 dark:text-teal-200">
-            Demo site — Pulseboard
-          </span>
-          <h1 className="mt-4 text-4xl font-bold tracking-tight">
-            Product analytics your whole team actually reads
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-slate-600 dark:text-slate-300">
-            This is a pretend customer website. Look at the bottom-right corner: that chat
-            bubble is the real FreshDocs widget, answering from the sample help center.
-            Try asking <em>“How much does Pro cost?”</em> or{" "}
-            <em>“How do I connect Postgres?”</em>
-          </p>
-          <div className="mt-6 flex gap-3">
-            <button
-              onClick={() => window.FreshDocsWidget?.open()}
-              className="rounded-lg bg-teal-600 px-5 py-2.5 font-semibold text-white hover:bg-teal-700"
-            >
-              Open the chat
-            </button>
-          </div>
-        </div>
-
-        {/* install docs */}
-        <div className="mt-12 grid gap-8 lg:grid-cols-2">
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight">Install it on your site</h2>
-            <ol className="mt-4 space-y-3 text-slate-600 dark:text-slate-300">
-              <li className="flex gap-3">
-                <span className="font-bold text-teal-600">1.</span>
-                Deploy FreshDocs anywhere Node.js runs and note your public host.
-              </li>
-              <li className="flex gap-3">
-                <span className="font-bold text-teal-600">2.</span>
-                Paste the snippet before <code>&lt;/body&gt;</code>, replacing{" "}
-                <code>YOUR-HOST</code> with your host.
-              </li>
-              <li className="flex gap-3">
-                <span className="font-bold text-teal-600">3.</span>
-                The bubble appears on every page. <code>data-title</code> sets the panel
-                header; omit <code>data-api</code> and it defaults to the script's own
-                origin.
-              </li>
-            </ol>
-            <h3 className="mt-8 text-lg font-semibold">How it answers</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-              Every question is searched against your articles with SQLite FTS5, then
-              answered by your configured LLM with inline citations like [1], [2] that
-              link back to the source articles. With no API key set, it falls back to
-              extractive snippets — the widget never breaks.
-            </p>
-          </div>
-          <div>
-            <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800">
-              <div className="flex items-center justify-between bg-slate-900 px-4 py-2">
-                <span className="text-xs font-medium text-slate-300">widget snippet</span>
-                <button
-                  onClick={copy}
-                  className="rounded bg-slate-700 px-3 py-1 text-xs font-medium text-white hover:bg-slate-600"
-                >
-                  {copied ? "Copied ✓" : "Copy"}
-                </button>
+      <main>
+        <section className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-16">
+          <div className="grid overflow-hidden rounded-[28px] border border-[#d4ddd6] bg-white shadow-[0_24px_60px_rgba(36,61,50,0.08)] lg:grid-cols-[1.08fr_.92fr]">
+            <div className="p-7 sm:p-12 lg:p-16">
+              <div className="inline-flex items-center gap-2 rounded-full bg-[#edf4f0] px-3 py-1.5 text-xs font-semibold text-[#315e4d]">
+                <span className="size-1.5 rounded-full bg-[#20a77a]" />
+                Live widget demo
               </div>
-              <pre className="overflow-x-auto bg-slate-950 p-4 font-mono text-sm leading-relaxed text-slate-200">
-                {SNIPPET}
-              </pre>
-            </div>
-            <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
-              <p className="font-semibold text-slate-800 dark:text-slate-100">JavaScript API</p>
-              <p className="mt-1 font-mono text-xs">
-                window.FreshDocsWidget.open() · window.FreshDocsWidget.close()
+              <p className="mt-10 text-sm font-semibold text-[#126b52]">Pulseboard</p>
+              <h1 className="mt-3 max-w-xl text-4xl font-semibold leading-[1.08] tracking-[-0.05em] sm:text-5xl">
+                Product analytics your whole team actually reads.
+              </h1>
+              <p className="mt-6 max-w-xl leading-7 text-[#69776f]">
+                This sample product has the real FreshDocs assistant installed. Ask a question
+                and see how it answers from approved help content.
+              </p>
+              <button
+                onClick={() => window.FreshDocsWidget?.open()}
+                className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#126b52] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(18,107,82,0.2)] hover:-translate-y-0.5 hover:bg-[#0e5b45]"
+              >
+                Open the assistant
+                <svg viewBox="0 0 20 20" className="size-4" fill="none" aria-hidden="true">
+                  <path d="M4 10h12m-4-4 4 4-4 4" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+                </svg>
+              </button>
+              <p className="mt-5 text-xs text-[#8a9690]">
+                Try “How much does Pro cost?” or “How do I connect Postgres?”
               </p>
             </div>
+            <div className="relative min-h-[400px] overflow-hidden bg-[#15251f] p-6 sm:p-10">
+              <div className="absolute -right-16 -top-16 size-56 rounded-full bg-[#1e765b] blur-3xl" aria-hidden="true" />
+              <div className="relative mx-auto max-w-sm rounded-[22px] border border-white/10 bg-white/5 p-4 shadow-2xl backdrop-blur">
+                <div className="flex items-center gap-2 border-b border-white/10 pb-4">
+                  <span className="size-2.5 rounded-full bg-[#ff856f]" />
+                  <span className="size-2.5 rounded-full bg-[#f7c55d]" />
+                  <span className="size-2.5 rounded-full bg-[#62c99a]" />
+                </div>
+                <div className="mt-5 grid grid-cols-3 gap-3">
+                  {["24.8k", "8.4%", "1,204"].map((value) => (
+                    <div key={value} className="rounded-xl bg-white/8 p-3">
+                      <p className="text-lg font-semibold text-white">{value}</p>
+                      <div className="mt-2 h-1.5 w-10 rounded-full bg-white/15" />
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-3 rounded-xl bg-white/8 p-4">
+                  <div className="flex h-32 items-end gap-2">
+                    {[42, 65, 48, 78, 56, 92, 72, 100, 84].map((height, index) => (
+                      <div key={index} className="flex-1 rounded-t bg-[#62c99a]" style={{ height: `${height}%`, opacity: .45 + index * .05 }} />
+                    ))}
+                  </div>
+                </div>
+                <div className="mt-3 space-y-2">
+                  <div className="h-10 rounded-xl bg-white/8" />
+                  <div className="h-10 rounded-xl bg-white/8" />
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
+
+        <section className="border-t border-[#dfe5df] bg-[#f4f6f2]">
+          <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-24">
+            <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#126b52]">Install once</p>
+                <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">Add helpful answers to any site.</h2>
+                <p className="mt-5 leading-7 text-[#69776f]">
+                  Paste one script before <code className="rounded bg-[#e7ece8] px-1.5 py-0.5 text-sm">&lt;/body&gt;</code>.
+                  The assistant searches your approved articles and includes source links in every response.
+                </p>
+                <ol className="mt-8 space-y-5">
+                  {[
+                    "Deploy FreshDocs and copy your public host.",
+                    "Paste the snippet and replace YOUR-HOST.",
+                    "Set the panel title, then publish.",
+                  ].map((step, index) => (
+                    <li key={step} className="flex items-center gap-4 text-sm font-medium">
+                      <span className="flex size-8 shrink-0 items-center justify-center rounded-full border border-[#cbd6ce] bg-white font-mono text-xs text-[#126b52]">
+                        {index + 1}
+                      </span>
+                      {step}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+              <div>
+                <div className="overflow-hidden rounded-2xl border border-[#273a32] bg-[#101c17] shadow-xl">
+                  <div className="flex items-center justify-between border-b border-white/10 px-5 py-3">
+                    <span className="font-mono text-xs text-[#92a59c]">widget.html</span>
+                    <button
+                      onClick={copy}
+                      className="rounded-full border border-white/15 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/10"
+                    >
+                      {copied ? "Copied" : "Copy code"}
+                    </button>
+                  </div>
+                  <pre className="overflow-x-auto p-5 font-mono text-sm leading-7 text-[#d6e2dc]">{SNIPPET}</pre>
+                </div>
+                <div className="mt-4 flex flex-col gap-2 rounded-2xl border border-[#d8e0da] bg-white p-5 text-sm sm:flex-row sm:items-center sm:justify-between">
+                  <p className="font-semibold">JavaScript API</p>
+                  <code className="text-xs text-[#5d6c64]">FreshDocsWidget.open() · .close()</code>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
+      <SiteFooter />
     </div>
   );
 }
