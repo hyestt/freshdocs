@@ -3,16 +3,19 @@ import SiteFooter from "../components/SiteFooter";
 import { getArticles } from "@/lib/data";
 import DocsExplorer from "./DocsExplorer";
 import DocsSidebar from "./DocsSidebar";
+import { orderArticles } from "./article-order";
 
 export const dynamic = "force-dynamic";
 
 export default async function DocsIndexPage() {
-  const articles = (await getArticles()).map((a) => ({
-    id: a.id,
-    title: a.title,
-    slug: a.slug,
-    status: a.status,
-  }));
+  const articles = orderArticles(
+    (await getArticles()).map((a) => ({
+      id: a.id,
+      title: a.title,
+      slug: a.slug,
+      status: a.status,
+    }))
+  );
 
   return (
     <div className="min-h-screen bg-[#fbfcf9] text-[#14231d]">

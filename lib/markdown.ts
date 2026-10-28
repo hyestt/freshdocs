@@ -49,8 +49,15 @@ export interface MarkdownHeading {
 export function getMarkdownHeadings(md: string): MarkdownHeading[] {
   const seen = new Map<string, number>();
   const headings: MarkdownHeading[] = [];
+  let inFence = false;
 
   for (const line of md.split("\n")) {
+    if (line.trimStart().startsWith("```")) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) continue;
+
     const match = line.match(/^(#{1,4})\s+(.*)$/);
     if (!match) continue;
     const level = match[1].length;

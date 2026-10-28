@@ -26,27 +26,27 @@ export default function LandingPage() {
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-[#cddbd3] bg-white/80 px-3 py-1.5 text-xs font-semibold text-[#315e4d] shadow-sm">
                 <span className="size-1.5 rounded-full bg-[#20a77a]" />
-                Documentation health, handled
+                Audit, review, publish
               </div>
               <h1 className="mt-7 max-w-3xl text-[2.9rem] font-semibold leading-[1.02] tracking-[-0.055em] sm:text-6xl lg:text-[4.5rem]">
                 Keep your help center in step with your product.
               </h1>
               <p className="mt-7 max-w-xl text-lg leading-8 text-[#5d6c64]">
-                FreshDocs finds stale answers, writes the update, and gives your team a clear
-                review queue. Your customers get accurate help without the content chase.
+                FreshDocs compares every article with its source, drafts updates when facts
+                change, and puts your team in control of what gets published.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <Link
-                  href="/demo"
+                  href="/admin"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-[#126b52] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_12px_32px_rgba(18,107,82,0.22)] hover:-translate-y-0.5 hover:bg-[#0e5b45]"
                 >
-                  Explore the live demo <Arrow />
+                  Try the audit workflow <Arrow />
                 </Link>
                 <Link
-                  href="/docs"
+                  href="/demo"
                   className="inline-flex items-center justify-center rounded-full border border-[#ccd5cf] bg-white px-6 py-3.5 text-sm font-semibold text-[#263b32] hover:border-[#9fb4a8] hover:bg-[#f6f8f4]"
                 >
-                  Browse the help center
+                  See the chat widget
                 </Link>
               </div>
               <p className="mt-5 text-xs font-medium text-[#7b8881]">
@@ -228,14 +228,14 @@ export default function LandingPage() {
                     ))}
                   </ul>
                   <Link
-                    href="/demo"
+                    href="/admin"
                     className={`mt-8 flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold ${
                       tier.primary
                         ? "bg-[#126b52] text-white hover:bg-[#0e5b45]"
                         : "border border-[#cbd6ce] bg-white text-[#263b32] hover:border-[#9fb4a8]"
                     }`}
                   >
-                    Try it free
+                    Open workspace
                   </Link>
                 </div>
               ))}
