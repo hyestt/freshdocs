@@ -43,22 +43,32 @@ export default function DocsExplorer({ initial }: { initial: ArticleSummary[] })
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search the help center…"
-          className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 pl-11 text-slate-900 placeholder:text-slate-400 focus:border-teal-600 focus:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+          placeholder="Search by topic or question…"
+          aria-label="Search help articles"
+          className="w-full rounded-2xl border border-[#ccd6cf] bg-white py-4 pl-12 pr-4 text-[#14231d] shadow-sm placeholder:text-[#9aa59f] focus:border-[#126b52] focus:outline-none"
         />
-        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">🔎</span>
+        <svg viewBox="0 0 20 20" className="absolute left-4 top-1/2 size-5 -translate-y-1/2 text-[#7b8881]" fill="none" aria-hidden="true">
+          <circle cx="8.5" cy="8.5" r="5.25" stroke="currentColor" strokeWidth="1.5" />
+          <path d="m12.5 12.5 4 4" stroke="currentColor" strokeLinecap="round" strokeWidth="1.5" />
+        </svg>
       </div>
 
-      <div className="mt-8 grid gap-4">
-        {searching && <p className="text-sm text-slate-500">Searching…</p>}
+      <div className="mt-10">
+        <div className="mb-4 flex items-center justify-between">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#7b8881]">
+            {query ? "Search results" : "All guides"}
+          </p>
+          <p className="text-xs text-[#9aa59f]">{articles.length} article{articles.length === 1 ? "" : "s"}</p>
+        </div>
+        {searching && <p className="py-6 text-sm text-[#7b8881]">Searching…</p>}
         {!searching && articles.length === 0 && (
-          <div className="rounded-xl border border-dashed border-slate-300 p-8 text-center text-slate-500 dark:border-slate-700">
+          <div className="rounded-2xl border border-dashed border-[#cbd6ce] bg-white p-10 text-center text-sm text-[#69776f]">
             {query ? (
               <>No articles match “{query}”. Try different words.</>
             ) : (
               <>
                 No articles yet.{" "}
-                <Link href="/admin" className="text-teal-700 underline dark:text-teal-300">
+                <Link href="/admin" className="font-medium text-[#126b52] underline underline-offset-4">
                   Open the admin dashboard
                 </Link>{" "}
                 to seed demo data or ingest your docs.
@@ -66,25 +76,34 @@ export default function DocsExplorer({ initial }: { initial: ArticleSummary[] })
             )}
           </div>
         )}
-        {articles.map((a) => (
-          <Link
-            key={a.id}
-            href={`/docs/${a.slug}`}
-            className="group rounded-xl border border-slate-200 bg-white p-5 transition-shadow hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
-          >
-            <div className="flex items-center justify-between gap-4">
-              <h2 className="text-lg font-semibold group-hover:text-teal-700 dark:group-hover:text-teal-300">
-                {a.title}
-              </h2>
-              {a.status === "stale" && (
-                <span className="shrink-0 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-800 dark:bg-amber-900/40 dark:text-amber-200">
-                  Needs review
-                </span>
-              )}
-            </div>
-            <p className="mt-1 text-sm text-teal-700 dark:text-teal-300">Read article →</p>
-          </Link>
-        ))}
+        {articles.length > 0 && (
+          <div className="divide-y divide-[#e1e6e2] overflow-hidden rounded-2xl border border-[#d8e0da] bg-white">
+            {articles.map((a) => (
+            <Link
+              key={a.id}
+              href={`/docs/${a.slug}`}
+              className="group flex items-center justify-between gap-5 px-5 py-5 hover:bg-[#f6f8f4] sm:px-6"
+            >
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h2 className="font-semibold tracking-[-0.015em] group-hover:text-[#126b52]">{a.title}</h2>
+                  {a.status === "stale" && (
+                    <span className="rounded-full bg-[#fff3cf] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-[#765d12]">
+                      Review pending
+                    </span>
+                  )}
+                </div>
+                <p className="mt-1 text-sm text-[#7b8881]">Read the guide</p>
+              </div>
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[#d8e0da] text-[#7b8881] group-hover:border-[#b7c9be] group-hover:bg-white group-hover:text-[#126b52]">
+                <svg viewBox="0 0 20 20" className="size-4" fill="none" aria-hidden="true">
+                  <path d="M4 10h12m-4-4 4 4-4 4" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+                </svg>
+              </span>
+            </Link>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

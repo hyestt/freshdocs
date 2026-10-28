@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { BrandMark } from "../components/Brand";
 
 // ------------------------------------------------------------------ types
 
@@ -49,13 +50,13 @@ function fmtDate(iso: string | null): string {
 function StatusBadge({ status }: { status: string }) {
   if (status === "stale") {
     return (
-      <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-800 dark:bg-amber-900/40 dark:text-amber-200">
+      <span className="rounded-full bg-[#fff1c2] px-2.5 py-1 text-[11px] font-semibold text-[#725a16]">
         Stale
       </span>
     );
   }
   return (
-    <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200">
+    <span className="rounded-full bg-[#e2f3ea] px-2.5 py-1 text-[11px] font-semibold text-[#126b52]">
       Fresh
     </span>
   );
@@ -67,20 +68,20 @@ function DiffPane({ ops, side }: { ops: DiffOp[]; side: "old" | "new" }) {
     side === "old" ? o.type !== "add" : o.type !== "del"
   );
   return (
-    <div className="overflow-x-auto rounded-lg border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900">
-      <div className="border-b border-slate-200 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:border-slate-700">
+    <div className="overflow-x-auto rounded-xl border border-[#d8e0da] bg-white">
+      <div className="border-b border-[#e1e6e2] px-4 py-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#7b8881]">
         {side === "old" ? "Current article" : "Proposed update"}
       </div>
-      <pre className="max-h-96 overflow-y-auto p-3 font-mono text-xs leading-relaxed">
+      <pre className="max-h-96 overflow-y-auto p-4 font-mono text-xs leading-relaxed">
         {rows.map((o, i) => (
           <div
             key={i}
             className={
               o.type === "del"
-                ? "bg-red-100 text-red-900 dark:bg-red-950 dark:text-red-200"
+                ? "bg-[#fff0ed] text-[#873a2e]"
                 : o.type === "add"
-                  ? "bg-emerald-100 text-emerald-900 dark:bg-emerald-950 dark:text-emerald-200"
-                  : "text-slate-600 dark:text-slate-400"
+                  ? "bg-[#e7f5ed] text-[#175a44]"
+                  : "text-[#69776f]"
             }
           >
             {o.text || " "}
@@ -242,8 +243,8 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-slate-950">
-        <p className="text-slate-500">Loading dashboard…</p>
+      <div className="flex min-h-screen items-center justify-center bg-[#f5f7f3]">
+        <p className="text-sm text-[#69776f]">Loading workspace…</p>
       </div>
     );
   }
@@ -260,71 +261,80 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <div className="min-h-screen bg-[#f5f7f3] text-[#14231d]">
       {/* header */}
-      <header className="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <div className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-lg font-bold text-white">
-              F
-            </span>
-            <span className="text-lg font-bold">FreshDocs admin</span>
+      <header className="border-b border-[#dfe5df] bg-white">
+        <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5 sm:px-8">
+          <div className="flex items-center gap-3">
+            <BrandMark />
+            <div>
+              <span className="block text-sm font-semibold tracking-[-0.02em]">FreshDocs</span>
+              <span className="block text-[10px] font-medium uppercase tracking-[0.1em] text-[#8a9690]">Workspace</span>
+            </div>
           </div>
           <button
             onClick={logout}
-            className="text-sm font-medium text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+            className="rounded-full border border-[#d8e0da] px-4 py-2 text-xs font-semibold text-[#5d6c64] hover:border-[#b7c9be] hover:text-[#126b52]"
           >
             Sign out
           </button>
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl space-y-10 px-4 py-8 sm:px-6">
+      <main className="mx-auto max-w-7xl space-y-10 px-5 py-10 sm:px-8">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#126b52]">Overview</p>
+          <h1 className="mt-2 text-3xl font-semibold tracking-[-0.04em]">Documentation workspace</h1>
+          <p className="mt-2 text-sm text-[#69776f]">Monitor content health and review suggested updates.</p>
+        </div>
         {/* stats */}
         <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {cards.map((c) => (
             <div
               key={c.label}
-              className="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900"
+              className="rounded-2xl border border-[#d8e0da] bg-white p-5 shadow-[0_8px_24px_rgba(36,61,50,0.04)]"
             >
-              <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{c.label}</p>
-              <p className="mt-1 text-3xl font-bold">{c.value}</p>
-              <p className="mt-1 text-xs text-slate-400">{c.hint}</p>
+              <p className="text-xs font-medium text-[#7b8881]">{c.label}</p>
+              <p className="mt-3 text-3xl font-semibold tracking-[-0.04em]">{c.value}</p>
+              <p className="mt-1 text-xs text-[#9aa59f]">{c.hint}</p>
             </div>
           ))}
         </section>
 
         {/* actions */}
-        <section className="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
-          <h2 className="text-lg font-semibold">Audit & seed</h2>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+        <section className="flex flex-col gap-5 rounded-2xl border border-[#cddbd3] bg-[#eaf4ee] p-6 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+          <div>
+          <h2 className="text-lg font-semibold tracking-[-0.02em]">Audit your help center</h2>
+          <p className="mt-1 max-w-2xl text-sm leading-6 text-[#5d6c64]">
             Re-fetch every article's source page, diff it, and let the AI draft updates for
             anything that went stale.
           </p>
-          <div className="mt-4 flex flex-wrap gap-3">
+          {checkMsg && <p className="mt-3 text-sm font-medium text-[#315e4d]">{checkMsg}</p>}
+          </div>
+          <div className="flex shrink-0 flex-wrap gap-3">
             <button
               onClick={runCheck}
               disabled={checking}
-              className="rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700 disabled:opacity-50"
+              className="rounded-full bg-[#126b52] px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#0e5b45] disabled:opacity-50"
             >
               {checking ? "Auditing…" : "Check for updates now"}
             </button>
             <button
               onClick={runSeed}
               disabled={seeding}
-              className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-400 dark:border-slate-700 dark:text-slate-200 disabled:opacity-50"
+              className="rounded-full border border-[#b8cbc0] bg-white px-5 py-2.5 text-sm font-semibold text-[#315e4d] hover:border-[#8eaa9b] disabled:opacity-50"
             >
               {seeding ? "Seeding…" : "Seed demo data"}
             </button>
           </div>
-          {checkMsg && <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">{checkMsg}</p>}
         </section>
 
         {/* ingest */}
         <section className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
-            <h2 className="text-lg font-semibold">Crawl a docs site</h2>
-            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+          <div className="rounded-2xl border border-[#d8e0da] bg-white p-6">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8a9690]">From a URL</p>
+            <h2 className="mt-2 text-lg font-semibold">Crawl a docs site</h2>
+            <p className="mt-1 text-sm text-[#69776f]">
               Same-origin crawl, up to 30 pages.
             </p>
             <div className="mt-4 flex gap-2">
@@ -332,40 +342,41 @@ export default function AdminDashboard() {
                 value={ingestUrl}
                 onChange={(e) => setIngestUrl(e.target.value)}
                 placeholder="https://docs.example.com"
-                className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-teal-600 focus:outline-none dark:border-slate-700 dark:bg-slate-800"
+                className="min-w-0 flex-1 rounded-xl border border-[#cbd6ce] bg-white px-3 py-2.5 text-sm placeholder:text-[#9aa59f] focus:border-[#126b52] focus:outline-none"
               />
               <button
                 onClick={runCrawl}
                 disabled={ingesting || !ingestUrl.trim()}
-                className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-50 dark:bg-slate-100 dark:text-slate-900"
+                className="rounded-xl bg-[#14231d] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#263b32] disabled:opacity-50"
               >
                 {ingesting ? "Crawling…" : "Crawl"}
               </button>
             </div>
-            {ingestMsg && <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">{ingestMsg}</p>}
+            {ingestMsg && <p className="mt-3 text-sm text-[#5d6c64]">{ingestMsg}</p>}
           </div>
-          <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
-            <h2 className="text-lg font-semibold">Paste an article</h2>
-            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+          <div className="rounded-2xl border border-[#d8e0da] bg-white p-6">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8a9690]">From Markdown</p>
+            <h2 className="mt-2 text-lg font-semibold">Paste an article</h2>
+            <p className="mt-1 text-sm text-[#69776f]">
               Markdown is rendered in the help center.
             </p>
             <input
               value={pasteTitle}
               onChange={(e) => setPasteTitle(e.target.value)}
               placeholder="Article title"
-              className="mt-4 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-teal-600 focus:outline-none dark:border-slate-700 dark:bg-slate-800"
+              className="mt-4 w-full rounded-xl border border-[#cbd6ce] px-3 py-2.5 text-sm placeholder:text-[#9aa59f] focus:border-[#126b52] focus:outline-none"
             />
             <textarea
               value={pasteMd}
               onChange={(e) => setPasteMd(e.target.value)}
               placeholder="# Title&#10;&#10;Write Markdown here…"
               rows={4}
-              className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2 font-mono text-sm focus:border-teal-600 focus:outline-none dark:border-slate-700 dark:bg-slate-800"
+              className="mt-2 w-full rounded-xl border border-[#cbd6ce] px-3 py-2.5 font-mono text-sm placeholder:text-[#9aa59f] focus:border-[#126b52] focus:outline-none"
             />
             <button
               onClick={runPaste}
               disabled={pasting || !pasteMd.trim()}
-              className="mt-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-50 dark:bg-slate-100 dark:text-slate-900"
+              className="mt-2 rounded-xl bg-[#14231d] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#263b32] disabled:opacity-50"
             >
               {pasting ? "Adding…" : "Add article"}
             </button>
@@ -374,17 +385,27 @@ export default function AdminDashboard() {
 
         {/* drafts */}
         <section>
-          <h2 className="text-lg font-semibold">
+          <div className="flex items-center justify-between">
+          <div>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8a9690]">Needs your attention</p>
+          <h2 className="mt-2 text-xl font-semibold tracking-[-0.025em]">
             Review queue{" "}
-            <span className="ml-1 rounded-full bg-slate-200 px-2 py-0.5 text-xs dark:bg-slate-800">
+            <span className="ml-1 rounded-full bg-[#e7ece8] px-2.5 py-1 text-xs">
               {drafts.length}
             </span>
           </h2>
+          </div>
+          </div>
           {drafts.length === 0 ? (
-            <p className="mt-3 rounded-xl border border-dashed border-slate-300 p-6 text-center text-sm text-slate-500 dark:border-slate-700">
-              No pending drafts. Run an audit to generate some — or seed demo data and crawl a
-              site that changes often.
-            </p>
+            <div className="mt-4 rounded-2xl border border-dashed border-[#cbd6ce] bg-white px-6 py-10 text-center">
+              <span className="mx-auto flex size-10 items-center justify-center rounded-full bg-[#e7f5ed] text-[#126b52]">
+                <svg viewBox="0 0 20 20" className="size-5" fill="none" aria-hidden="true">
+                  <path d="m5 10.25 3.1 3.1L15.25 6.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+                </svg>
+              </span>
+              <p className="mt-4 text-sm font-medium">Your review queue is clear</p>
+              <p className="mt-1 text-xs text-[#8a9690]">Run an audit to check for new source changes.</p>
+            </div>
           ) : (
             <div className="mt-4 space-y-6">
               {drafts.map((d) => {
@@ -392,18 +413,18 @@ export default function AdminDashboard() {
                 return (
                   <div
                     key={d.id}
-                    className="rounded-xl border border-amber-200 bg-amber-50/50 p-6 dark:border-amber-900 dark:bg-amber-950/20"
+                    className="rounded-2xl border border-[#e4d49f] bg-[#fffaf0] p-6"
                   >
                     <div className="flex flex-wrap items-center justify-between gap-3">
                       <div>
                         <h3 className="font-semibold">{d.article_title}</h3>
-                        <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-                          <span className="font-medium text-slate-800 dark:text-slate-100">
+                        <p className="mt-1 text-sm text-[#5d6c64]">
+                          <span className="font-medium text-[#263b32]">
                             Why it flagged:
                           </span>{" "}
                           {d.reason}
                         </p>
-                        <p className="mt-0.5 text-xs text-slate-400">
+                        <p className="mt-1 text-xs text-[#9a8d66]">
                           Draft #{d.id} · {fmtDate(d.created_at)}
                         </p>
                       </div>
@@ -420,21 +441,21 @@ export default function AdminDashboard() {
                                 : { ...e, [d.id]: d.proposed_markdown }
                             )
                           }
-                          className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-medium hover:border-slate-400 dark:border-slate-700"
+                          className="rounded-full border border-[#d7ca9f] bg-white px-3.5 py-2 text-xs font-semibold hover:border-[#b6a46b]"
                         >
                           {isEditing ? "Cancel edit" : "Edit"}
                         </button>
                         <button
                           onClick={() => rejectDraft(d.id)}
                           disabled={busyDraft === d.id}
-                          className="rounded-lg border border-red-300 px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-50 dark:border-red-900 dark:text-red-300 dark:hover:bg-red-950"
+                          className="rounded-full border border-[#eccac3] bg-white px-3.5 py-2 text-xs font-semibold text-[#a34334] hover:bg-[#fff0ed] disabled:opacity-50"
                         >
                           Reject
                         </button>
                         <button
                           onClick={() => approveDraft(d.id)}
                           disabled={busyDraft === d.id}
-                          className="rounded-lg bg-teal-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-teal-700 disabled:opacity-50"
+                          className="rounded-full bg-[#126b52] px-4 py-2 text-xs font-semibold text-white hover:bg-[#0e5b45] disabled:opacity-50"
                         >
                           {busyDraft === d.id
                             ? "Saving…"
@@ -452,7 +473,7 @@ export default function AdminDashboard() {
                           setEditing((prev) => ({ ...prev, [d.id]: e.target.value }))
                         }
                         rows={16}
-                        className="mt-4 w-full rounded-lg border border-slate-300 bg-white p-3 font-mono text-xs leading-relaxed focus:border-teal-600 focus:outline-none dark:border-slate-700 dark:bg-slate-900"
+                        className="mt-4 w-full rounded-xl border border-[#d7ca9f] bg-white p-4 font-mono text-xs leading-relaxed focus:border-[#126b52] focus:outline-none"
                       />
                     ) : (
                       <div className="mt-4 grid gap-4 lg:grid-cols-2">
@@ -469,16 +490,17 @@ export default function AdminDashboard() {
 
         {/* articles */}
         <section>
-          <h2 className="text-lg font-semibold">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8a9690]">Content library</p>
+          <h2 className="mt-2 text-xl font-semibold tracking-[-0.025em]">
             Articles{" "}
-            <span className="ml-1 rounded-full bg-slate-200 px-2 py-0.5 text-xs dark:bg-slate-800">
+            <span className="ml-1 rounded-full bg-[#e7ece8] px-2.5 py-1 text-xs">
               {articles.length}
             </span>
           </h2>
-          <div className="mt-4 overflow-x-auto rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+          <div className="mt-4 overflow-x-auto rounded-2xl border border-[#d8e0da] bg-white">
             <table className="w-full min-w-[640px] text-left text-sm">
               <thead>
-                <tr className="border-b border-slate-200 text-xs uppercase tracking-wide text-slate-500 dark:border-slate-800">
+                <tr className="border-b border-[#e1e6e2] bg-[#fafbf9] text-[10px] uppercase tracking-[0.12em] text-[#7b8881]">
                   <th className="px-4 py-3">Title</th>
                   <th className="px-4 py-3">Status</th>
                   <th className="px-4 py-3">Source</th>
@@ -490,19 +512,19 @@ export default function AdminDashboard() {
                 {articles.map((a) => (
                   <tr
                     key={a.id}
-                    className="border-b border-slate-100 last:border-0 dark:border-slate-800"
+                    className="border-b border-[#edf0ed] last:border-0 hover:bg-[#fafbf9]"
                   >
                     <td className="px-4 py-3 font-medium">{a.title}</td>
                     <td className="px-4 py-3">
                       <StatusBadge status={a.status} />
                     </td>
-                    <td className="max-w-[220px] truncate px-4 py-3 text-slate-500">
+                    <td className="max-w-[220px] truncate px-4 py-3 text-[#7b8881]">
                       {a.source_url ? (
                         <a
                           href={a.source_url}
                           target="_blank"
                           rel="noreferrer"
-                          className="text-teal-700 hover:underline dark:text-teal-300"
+                          className="text-[#126b52] hover:underline"
                         >
                           {a.source_url}
                         </a>
@@ -510,13 +532,13 @@ export default function AdminDashboard() {
                         "—"
                       )}
                     </td>
-                    <td className="px-4 py-3 text-slate-500">{fmtDate(a.updated_at)}</td>
-                    <td className="px-4 py-3 text-slate-500">{fmtDate(a.checked_at)}</td>
+                    <td className="px-4 py-3 text-[#7b8881]">{fmtDate(a.updated_at)}</td>
+                    <td className="px-4 py-3 text-[#7b8881]">{fmtDate(a.checked_at)}</td>
                   </tr>
                 ))}
                 {articles.length === 0 && (
                   <tr>
-                    <td colSpan={5} className="px-4 py-8 text-center text-slate-500">
+                    <td colSpan={5} className="px-4 py-10 text-center text-[#7b8881]">
                       No articles yet — seed demo data or ingest above.
                     </td>
                   </tr>

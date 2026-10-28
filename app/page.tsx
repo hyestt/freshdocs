@@ -1,306 +1,267 @@
 import Link from "next/link";
 import SiteNav from "./components/SiteNav";
+import SiteFooter from "./components/SiteFooter";
 
-const FEATURES = [
-  {
-    icon: "🔍",
-    title: "Continuous AI audits",
-    body: "FreshDocs re-reads your product docs on a schedule and diffs them against every help article. When something drifts, you'll know before your customers do.",
-  },
-  {
-    icon: "✍️",
-    title: "Drafts, not surprises",
-    body: "The AI never publishes on its own. It drafts an updated article with a plain-English explanation of what changed — you approve, edit, or reject in one click.",
-  },
-  {
-    icon: "⚡",
-    title: "One-click ingest",
-    body: "Paste a docs URL and FreshDocs crawls up to 30 pages into clean articles, or paste Markdown directly. Your help center is seeded in minutes.",
-  },
-  {
-    icon: "💬",
-    title: "Chat widget that cites sources",
-    body: "Drop one script tag on your site and visitors get instant answers grounded in your articles — every answer links back to the source article.",
-  },
-  {
-    icon: "🔎",
-    title: "Search that actually works",
-    body: "Full-text search over every article with typo-tolerant matching, so customers find answers instead of filing tickets.",
-  },
-  {
-    icon: "🧪",
-    title: "Works without an API key",
-    body: "No LLM key? No problem. Staleness checks fall back to a transparent line-diff heuristic and chat answers fall back to extractive snippets. The demo always works.",
-  },
-];
+const Arrow = () => (
+  <svg viewBox="0 0 20 20" className="size-4" fill="none" aria-hidden="true">
+    <path d="M4 10h12m-4.5-4.5L16 10l-4.5 4.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+  </svg>
+);
 
-const STEPS = [
-  {
-    n: "1",
-    title: "Connect your content",
-    body: "Crawl your existing docs site or paste Markdown. Each article remembers where it came from, so audits always have a source of truth to compare against.",
-  },
-  {
-    n: "2",
-    title: "Let the auditor work",
-    body: "Hit “Check for updates” (or schedule it). FreshDocs re-fetches every source page, diffs it, and asks the AI whether the article is still accurate.",
-  },
-  {
-    n: "3",
-    title: "Review and publish",
-    body: "Stale articles land in your review queue with a side-by-side diff and a rewritten draft. Approve it as-is, tweak it, or reject it — you're always in control.",
-  },
-];
+const Check = () => (
+  <svg viewBox="0 0 20 20" className="size-4" fill="none" aria-hidden="true">
+    <path d="m5 10.25 3.1 3.1L15.25 6.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" />
+  </svg>
+);
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <div className="min-h-screen bg-[#fbfcf9] text-[#14231d]">
       <SiteNav />
 
-      {/* ---------------------------------------------------------- HERO */}
-      <section className="mx-auto max-w-6xl px-4 pb-20 pt-16 sm:px-6 sm:pt-24">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-block rounded-full border border-teal-200 bg-teal-50 px-4 py-1 text-sm font-medium text-teal-800 dark:border-teal-900 dark:bg-teal-950 dark:text-teal-200">
-            AI-native help centers
-          </span>
-          <h1 className="mt-6 text-4xl font-bold tracking-tight sm:text-6xl">
-            The help center that{" "}
-            <span className="text-teal-600 dark:text-teal-400">never goes out of date</span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-600 dark:text-slate-300">
-            FreshDocs watches your product, audits every help article with AI, and drafts
-            updates for your approval — so your docs stay right without the busywork.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="/demo"
-              className="rounded-lg bg-teal-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-teal-700"
-            >
-              Try the live demo
-            </Link>
-            <Link
-              href="/docs"
-              className="rounded-lg border border-slate-300 px-6 py-3 font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:text-slate-900 dark:border-slate-700 dark:text-slate-200 dark:hover:text-white"
-            >
-              Browse sample docs
-            </Link>
-          </div>
-          <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
-            No credit card · Works without an LLM key · Self-hosted in one command
-          </p>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------- PROBLEM/SOLUTION */}
-      <section className="border-y border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight">Docs rot. Tickets pile up. Nobody has time.</h2>
-            <ul className="mt-6 space-y-4 text-slate-600 dark:text-slate-300">
-              <li className="flex gap-3">
-                <span className="text-red-500">✕</span>
-                Your product shipped three releases; the help center still describes version one.
-              </li>
-              <li className="flex gap-3">
-                <span className="text-red-500">✕</span>
-                Support answers the same five questions every week because the articles are wrong.
-              </li>
-              <li className="flex gap-3">
-                <span className="text-red-500">✕</span>
-                Nobody wants to own docs, so “update the help center” lives at the bottom of every sprint.
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight">FreshDocs keeps docs fresh automatically.</h2>
-            <ul className="mt-6 space-y-4 text-slate-600 dark:text-slate-300">
-              <li className="flex gap-3">
-                <span className="text-teal-600">✓</span>
-                An AI auditor continuously compares each article against its source page.
-              </li>
-              <li className="flex gap-3">
-                <span className="text-teal-600">✓</span>
-                Material changes become review-ready drafts with a clear explanation.
-              </li>
-              <li className="flex gap-3">
-                <span className="text-teal-600">✓</span>
-                You approve in one click — or edit first. Nothing publishes without a human.
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* -------------------------------------------------------- FEATURES */}
-      <section id="features" className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-        <h2 className="text-center text-3xl font-bold tracking-tight">
-          Everything a help center should do in 2026
-        </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-center text-slate-600 dark:text-slate-300">
-          Ingest, audit, draft, answer — one small app that covers the whole lifecycle of
-          support content.
-        </p>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map((f) => (
-            <div
-              key={f.title}
-              className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900"
-            >
-              <div className="text-3xl">{f.icon}</div>
-              <h3 className="mt-4 text-lg font-semibold">{f.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                {f.body}
+      <main>
+        <section className="relative overflow-hidden border-b border-[#dfe5df]">
+          <div className="soft-grid absolute inset-0" aria-hidden="true" />
+          <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[1.02fr_.98fr] lg:py-32">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#cddbd3] bg-white/80 px-3 py-1.5 text-xs font-semibold text-[#315e4d] shadow-sm">
+                <span className="size-1.5 rounded-full bg-[#20a77a]" />
+                Audit, review, publish
+              </div>
+              <h1 className="mt-7 max-w-3xl text-[2.9rem] font-semibold leading-[1.02] tracking-[-0.055em] sm:text-6xl lg:text-[4.5rem]">
+                Keep your help center in step with your product.
+              </h1>
+              <p className="mt-7 max-w-xl text-lg leading-8 text-[#5d6c64]">
+                FreshDocs compares every article with its source, drafts updates when facts
+                change, and puts your team in control of what gets published.
+              </p>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/admin"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#126b52] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_12px_32px_rgba(18,107,82,0.22)] hover:-translate-y-0.5 hover:bg-[#0e5b45]"
+                >
+                  Try the audit workflow <Arrow />
+                </Link>
+                <Link
+                  href="/demo"
+                  className="inline-flex items-center justify-center rounded-full border border-[#ccd5cf] bg-white px-6 py-3.5 text-sm font-semibold text-[#263b32] hover:border-[#9fb4a8] hover:bg-[#f6f8f4]"
+                >
+                  See the chat widget
+                </Link>
+              </div>
+              <p className="mt-5 text-xs font-medium text-[#7b8881]">
+                Self-hosted · No credit card · Works without an LLM key
               </p>
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* ------------------------------------------------------ HOW IT WORKS */}
-      <section
-        id="how"
-        className="border-y border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900"
-      >
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-          <h2 className="text-center text-3xl font-bold tracking-tight">How it works</h2>
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {STEPS.map((s) => (
-              <div key={s.n} className="relative">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-teal-600 text-lg font-bold text-white">
-                  {s.n}
+            <div className="relative mx-auto w-full max-w-[580px]">
+              <div className="absolute -left-10 top-20 size-44 rounded-full bg-[#d9f1e5] blur-3xl" aria-hidden="true" />
+              <div className="absolute -right-8 bottom-4 size-48 rounded-full bg-[#f5e6ad] blur-3xl" aria-hidden="true" />
+              <div className="relative overflow-hidden rounded-[28px] border border-[#cad5ce] bg-white p-3 shadow-[0_32px_80px_rgba(36,61,50,0.15)]">
+                <div className="rounded-[20px] bg-[#f4f6f2] p-5 sm:p-7">
+                  <div className="flex items-center justify-between border-b border-[#dce3dd] pb-5">
+                    <div>
+                      <p className="text-xs font-medium text-[#7b8881]">Workspace overview</p>
+                      <p className="mt-1 text-sm font-semibold">Documentation health</p>
+                    </div>
+                    <div className="flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-medium text-[#477061] shadow-sm">
+                      <span className="size-1.5 rounded-full bg-[#20a77a]" />
+                      Audit complete
+                    </div>
+                  </div>
+                  <div className="grid gap-3 py-5 sm:grid-cols-3">
+                    {[
+                      ["94%", "Healthy"],
+                      ["128", "Articles"],
+                      ["3", "To review"],
+                    ].map(([value, label]) => (
+                      <div key={label} className="rounded-2xl border border-[#e0e6e1] bg-white p-4">
+                        <p className="text-2xl font-semibold tracking-[-0.04em]">{value}</p>
+                        <p className="mt-1 text-xs text-[#7b8881]">{label}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="rounded-2xl border border-[#e0e6e1] bg-white p-4">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex gap-3">
+                        <span className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#fff2c8] text-[#7c6217]">
+                          <svg viewBox="0 0 20 20" className="size-4" fill="none">
+                            <path d="M10 6v4m0 3h.01M10 2.75 17.25 16H2.75L10 2.75Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+                          </svg>
+                        </span>
+                        <div>
+                          <p className="text-sm font-semibold">Connect a data source</p>
+                          <p className="mt-1 text-xs leading-5 text-[#7b8881]">
+                            Source changed · Draft ready for review
+                          </p>
+                        </div>
+                      </div>
+                      <span className="rounded-full bg-[#edf4f0] px-2.5 py-1 text-[11px] font-semibold text-[#315e4d]">
+                        Review
+                      </span>
+                    </div>
+                    <div className="mt-4 space-y-2">
+                      <div className="h-2 w-full rounded-full bg-[#e4e9e5]" />
+                      <div className="h-2 w-4/5 rounded-full bg-[#e4e9e5]" />
+                      <div className="h-2 w-2/3 rounded-full bg-[#d4eadf]" />
+                    </div>
+                  </div>
+                  <div className="mt-3 flex items-center justify-between rounded-2xl border border-[#e0e6e1] bg-white p-4">
+                    <div>
+                      <p className="text-sm font-semibold">Inviting teammates</p>
+                      <p className="mt-1 text-xs text-[#7b8881]">Checked 8 minutes ago</p>
+                    </div>
+                    <span className="flex size-8 items-center justify-center rounded-full bg-[#e4f3eb] text-[#126b52]"><Check /></span>
+                  </div>
                 </div>
-                <h3 className="mt-4 text-lg font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                  {s.body}
-                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-[#dfe5df] bg-white">
+          <div className="mx-auto grid max-w-7xl gap-px bg-[#dfe5df] sm:grid-cols-3">
+            {[
+              ["30 pages", "ingested in one crawl"],
+              ["One queue", "for every content change"],
+              ["Human approval", "before anything publishes"],
+            ].map(([value, label]) => (
+              <div key={value} className="bg-white px-8 py-8 text-center">
+                <p className="text-xl font-semibold tracking-[-0.03em]">{value}</p>
+                <p className="mt-1 text-sm text-[#7b8881]">{label}</p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ---------------------------------------------------------- PRICING */}
-      <section id="pricing" className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-        <h2 className="text-center text-3xl font-bold tracking-tight">
-          Simple pricing that scales with you
-        </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-center text-slate-600 dark:text-slate-300">
-          Start free. Pay when your docs — and your team — grow.
-        </p>
-        <div className="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-3">
-          {[
-            {
-              name: "Hobby",
-              price: "$0",
-              per: "forever",
-              feats: ["Up to 50 articles", "Manual audits", "Chat widget", "Community support"],
-              cta: "Start for free",
-              hot: false,
-            },
-            {
-              name: "Pro",
-              price: "$29",
-              per: "/month",
-              feats: [
-                "Unlimited articles",
-                "Scheduled AI audits",
-                "Draft review queue",
-                "Priority support",
-              ],
-              cta: "Start 14-day trial",
-              hot: true,
-            },
-            {
-              name: "Scale",
-              price: "$99",
-              per: "/month",
-              feats: ["Everything in Pro", "SSO / SAML", "Audit log & roles", "Dedicated success manager"],
-              cta: "Talk to us",
-              hot: false,
-            },
-          ].map((t) => (
-            <div
-              key={t.name}
-              className={`rounded-xl border p-6 ${
-                t.hot
-                  ? "border-teal-600 shadow-lg dark:border-teal-500"
-                  : "border-slate-200 dark:border-slate-800"
-              } bg-white dark:bg-slate-900`}
-            >
-              {t.hot && (
-                <span className="mb-2 inline-block rounded-full bg-teal-600 px-3 py-0.5 text-xs font-semibold text-white">
-                  Most popular
-                </span>
-              )}
-              <h3 className="text-lg font-semibold">{t.name}</h3>
-              <p className="mt-2">
-                <span className="text-3xl font-bold">{t.price}</span>
-                <span className="text-sm text-slate-500"> {t.per}</span>
+        <section className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
+          <div className="grid gap-14 lg:grid-cols-[.78fr_1.22fr] lg:gap-24">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#126b52]">A calmer workflow</p>
+              <h2 className="mt-5 text-4xl font-semibold leading-tight tracking-[-0.045em] sm:text-5xl">
+                From product change to published answer.
+              </h2>
+              <p className="mt-5 max-w-md text-base leading-7 text-[#69776f]">
+                FreshDocs turns content maintenance into a small, visible loop your team can
+                actually keep up with.
               </p>
-              <ul className="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-300">
-                {t.feats.map((f) => (
-                  <li key={f} className="flex gap-2">
-                    <span className="text-teal-600">✓</span> {f}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/demo"
-                className={`mt-6 block rounded-lg px-4 py-2 text-center text-sm font-semibold transition-colors ${
-                  t.hot
-                    ? "bg-teal-600 text-white hover:bg-teal-700"
-                    : "border border-slate-300 text-slate-700 hover:border-slate-400 dark:border-slate-700 dark:text-slate-200"
-                }`}
-              >
-                {t.cta}
-              </Link>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------- CTA */}
-      <section className="bg-teal-700 dark:bg-teal-900">
-        <div className="mx-auto max-w-6xl px-4 py-16 text-center sm:px-6">
-          <h2 className="text-3xl font-bold tracking-tight text-white">
-            Stop letting your docs go stale.
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-teal-100">
-            Seed a demo help center in one click, run an AI audit, and chat with your docs —
-            all in under five minutes.
-          </p>
-          <Link
-            href="/admin"
-            className="mt-8 inline-block rounded-lg bg-white px-6 py-3 font-semibold text-teal-800 transition-colors hover:bg-teal-50"
-          >
-            Open the admin dashboard
-          </Link>
-        </div>
-      </section>
-
-      {/* ---------------------------------------------------------- FOOTER */}
-      <footer className="border-t border-slate-200 dark:border-slate-800">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 sm:flex-row sm:px-6">
-          <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-teal-600 text-sm font-bold text-white">
-              F
-            </span>
-            <span className="font-semibold">FreshDocs</span>
-            <span className="text-sm text-slate-500">— the help center that never goes out of date.</span>
+            <div className="divide-y divide-[#dfe5df] border-y border-[#dfe5df]">
+              {[
+                ["01", "Connect the source", "Crawl an existing docs site or bring your own Markdown. Every article keeps its source attached."],
+                ["02", "Run a focused audit", "FreshDocs compares the source with the published answer and only flags material changes."],
+                ["03", "Review with context", "See what changed, edit the proposed copy, and publish only when it is ready."],
+              ].map(([n, title, body]) => (
+                <div key={n} className="grid gap-4 py-7 sm:grid-cols-[52px_180px_1fr] sm:items-start">
+                  <span className="font-mono text-xs text-[#9aa59f]">{n}</span>
+                  <h3 className="font-semibold">{title}</h3>
+                  <p className="text-sm leading-6 text-[#69776f]">{body}</p>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="flex gap-5 text-sm text-slate-500">
-            <Link href="/docs" className="hover:text-slate-800 dark:hover:text-slate-200">
-              Docs
-            </Link>
-            <Link href="/demo" className="hover:text-slate-800 dark:hover:text-slate-200">
-              Widget demo
-            </Link>
-            <Link href="/admin" className="hover:text-slate-800 dark:hover:text-slate-200">
-              Admin
+        </section>
+
+        <section className="bg-[#14231d] text-white">
+          <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
+            <div className="max-w-2xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#85d5b5]">Everything in one place</p>
+              <h2 className="mt-5 text-4xl font-semibold leading-tight tracking-[-0.045em] sm:text-5xl">
+                Less content debt. Better answers.
+              </h2>
+            </div>
+            <div className="mt-14 grid gap-px overflow-hidden rounded-[24px] bg-white/15 md:grid-cols-2">
+              {[
+                ["Audit what matters", "A transparent line diff filters out tiny changes before asking AI to judge accuracy."],
+                ["Draft, never auto-publish", "Every suggested update lands in a review queue with the reason it was flagged."],
+                ["Answer with citations", "The lightweight chat widget grounds each response in your approved help articles."],
+                ["Keep the stack simple", "SQLite, Next.js, and an optional LLM key. Self-host it without stitching together five services."],
+              ].map(([title, body], index) => (
+                <div key={title} className="bg-[#14231d] p-7 sm:p-9">
+                  <span className="font-mono text-xs text-[#85d5b5]">0{index + 1}</span>
+                  <h3 className="mt-8 text-xl font-semibold tracking-[-0.025em]">{title}</h3>
+                  <p className="mt-3 max-w-md text-sm leading-6 text-[#afbbb5]">{body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="pricing" className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
+          <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#126b52]">Simple pricing</p>
+              <h2 className="mt-5 text-4xl font-semibold tracking-[-0.045em] sm:text-5xl">Start small. Stay flexible.</h2>
+              <p className="mt-5 max-w-md leading-7 text-[#69776f]">
+                Explore the full workflow for free, then add capacity when your help center grows.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {[
+                {
+                  name: "Hobby",
+                  price: "$0",
+                  note: "For personal projects",
+                  features: ["Up to 50 articles", "On-demand audits", "Search and chat widget"],
+                  primary: false,
+                },
+                {
+                  name: "Pro",
+                  price: "$29",
+                  note: "For growing teams · per month",
+                  features: ["Unlimited articles", "Review-ready AI drafts", "Priority support"],
+                  primary: true,
+                },
+              ].map((tier) => (
+                <div
+                  key={tier.name}
+                  className={`rounded-[24px] border p-7 ${tier.primary ? "border-[#126b52] bg-[#eef6f1]" : "border-[#d8e0da] bg-white"}`}
+                >
+                  <p className="text-sm font-semibold">{tier.name}</p>
+                  <p className="mt-6 text-4xl font-semibold tracking-[-0.05em]">{tier.price}</p>
+                  <p className="mt-2 text-xs text-[#7b8881]">{tier.note}</p>
+                  <ul className="mt-7 space-y-3 text-sm text-[#4e6057]">
+                    {tier.features.map((feature) => (
+                      <li key={feature} className="flex items-center gap-2.5">
+                        <span className="text-[#126b52]"><Check /></span>{feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    href="/admin"
+                    className={`mt-8 flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold ${
+                      tier.primary
+                        ? "bg-[#126b52] text-white hover:bg-[#0e5b45]"
+                        : "border border-[#cbd6ce] bg-white text-[#263b32] hover:border-[#9fb4a8]"
+                    }`}
+                  >
+                    Open workspace
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-5 pb-24 sm:px-8 sm:pb-32">
+          <div className="mx-auto max-w-7xl overflow-hidden rounded-[28px] bg-[#dff0e7] px-6 py-14 text-center sm:px-12 sm:py-20">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#126b52]">See it in action</p>
+            <h2 className="mx-auto mt-5 max-w-2xl text-4xl font-semibold tracking-[-0.045em] sm:text-5xl">
+              Give every product change a clear path to the docs.
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl leading-7 text-[#50645a]">
+              Seed the demo, run an audit, and review your first suggested update in minutes.
+            </p>
+            <Link
+              href="/admin"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#14231d] px-6 py-3.5 text-sm font-semibold text-white hover:-translate-y-0.5 hover:bg-[#126b52]"
+            >
+              Open the dashboard <Arrow />
             </Link>
           </div>
-        </div>
-      </footer>
+        </section>
+      </main>
+      <SiteFooter />
     </div>
   );
 }
